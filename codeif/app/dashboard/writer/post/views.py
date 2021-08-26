@@ -99,7 +99,7 @@ def authorDetails(user):
     follower  = None
     is_validated = None
   return (follower,is_validated)
-
+'''
 def likeVIEW(request, pk):
   each_post = get_object_or_404(post, id=request.POST.get('post_id'))
   liked = False
@@ -110,25 +110,23 @@ def likeVIEW(request, pk):
     each_post.likes.add(request.user)  
     liked = True 
   return HttpResponseRedirect(reverse('details', args=[str(pk)]))
-  
+  '''
 
-'''def likeVIEW(request, id):
-  user = request.user
+def likeVIEW(request, id):
   if request.method == 'POST':
     post_id = request.POST.get('post_id')
-    post_obj = Instruction.objects.get(id=post_id)
-
-    if user in post_obj.Likes_M.all():
-      post_obj.Likes_M.remove(user)
-      post_obj.Liked_int_M = post_obj.Liked_int_M - 1
+    post_obj = post.objects.get(id=post_id)
+    
+    if post_obj.likes.filter(id=request.user.id).exists():
+      post_obj.Users_views.remove(request.user)
+      post_obj.Liked = post_obj.Liked - 1
       post_obj.save()
 
     else:
-      post_obj.Likes_M.add(user)
-      local_VAR_like_status=True
-      post_obj.Liked_int_M = post_obj.Liked_int_M + 1
+      post_obj.Users_views.add(request.user)
+      post_obj.Liked = post_obj.Liked + 1
       post_obj.save()
   #not using now
-  return HttpResponseRedirect(reverse('details', args=[str(id)]))'''
+  return HttpResponseRedirect(reverse('details', args=[str(id)]))
   
 
