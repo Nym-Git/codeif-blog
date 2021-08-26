@@ -128,7 +128,7 @@ def likeVIEW(request, pk):
       local_VAR_like_status=True
       post_obj.Liked_int_M = post_obj.Liked_int_M + 1
       post_obj.save()
-  #not using
+  #not using now
   return HttpResponseRedirect(reverse('details', args=[str(id)]))'''
   
 
